@@ -98,9 +98,19 @@ export class WeatherController {
       this.state.coordinates = geoResult.data;
 
       // 2. Consulta de pronóstico
+      // Validación estricta de coordenadas según Requisito 3.1 (-90 a 90 latitud, -180 a 180 longitud)
+      const { latitude, longitude } = geoResult.data;
+      if (latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180) {
+        const msg = 'Las coordenadas obtenidas no son válidas';
+        this.state = { ...this.state, isLoading: false, errorMessage: msg };
+        this.loadingIndicator.hide();
+        this.errorMessage.show(msg);
+        return;
+      }
+
       const forecastResult = await this.forecastService.getForecast(
-        geoResult.data.latitude,
-        geoResult.data.longitude
+        latitude,
+        longitude
       );
 
       if (!forecastResult.success) {

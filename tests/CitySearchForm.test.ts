@@ -77,5 +77,22 @@ describe('CitySearchForm - Property & Unit Tests', () => {
     const button = container.querySelector('button[type="submit"]') as HTMLButtonElement;
     button.click();
     expect(callback).toHaveBeenCalledWith('Madrid');
+
+    // Envío con tecla Enter en City_Input (Req 1.2)
+    callback.mockClear();
+    input.value = 'Barcelona';
+    input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+    expect(callback).toHaveBeenCalledWith('Barcelona');
+  });
+
+  it('Unit: City_Input permanece accesible después de un error (Req 1.6)', () => {
+    const form = new CitySearchForm(container);
+    const input = form.getInput()!;
+
+    input.value = '';
+    form.handleSubmit();
+
+    expect(input.disabled).toBe(false);
+    expect(container.querySelector('#city-validation-error')?.textContent).toBe('El nombre de la ciudad es obligatorio');
   });
 });

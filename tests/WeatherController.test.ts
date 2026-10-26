@@ -168,4 +168,33 @@ describe('WeatherController - Property & Unit Tests', () => {
     expect(errorEl.style.display).toBe('block');
     expect(loadingEl.style.display).toBe('none');
   });
+
+  it('Unit: Coordenadas fuera de rango (-90..90, -180..180) muestran error de coordenadas inválidas (Req 3.1)', async () => {
+    const fakeGeo = {
+      geocode: vi.fn().mockResolvedValue({
+        success: true,
+        data: { latitude: 95.5, longitude: 200.0, cityName: 'OutRangeCity' },
+      }),
+    } as unknown as GeocodingService;
+
+    const fakeForecast = {
+      getForecast: vi.fn(),
+    } as unknown as ForecastService;
+
+    const controller = new WeatherController({
+      geocodingService: fakeGeo,
+      forecastService: fakeForecast,
+      searchForm,
+      weatherDisplay,
+      loadingIndicator,
+      errorMessage,
+    });
+
+    await controller.handleSearch('OutRangeCity');
+
+    expect(fakeForecast.getForecast).not.toHaveBeenCalled();
+    expect(errorEl.textContent).toBe('Las coordenadas obtenidas no son válidas');
+    expect(errorEl.style.display).toBe('block');
+    expect(loadingEl.style.display).toBe('none');
+  });
 });

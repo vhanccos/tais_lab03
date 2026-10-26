@@ -52,6 +52,13 @@ export class CitySearchForm {
       this.handleSubmit();
     });
 
+    this.inputElement.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        this.handleSubmit();
+      }
+    });
+
     this.inputElement.addEventListener('input', () => {
       this.clearValidation();
     });
