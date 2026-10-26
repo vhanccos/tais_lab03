@@ -1,0 +1,21 @@
+{
+  "name": "lab03_kiro_specs",
+  "version": "1.0.0",
+  "description": "Weather forecast web application",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "@testing-library/dom": "^10.4.2",
+    "fast-check": "^4.10.2",
+    "jsdom": "^30.1.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5"
+  }
+}

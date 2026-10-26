@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pronóstico del Clima - Open-Meteo</title>
+  </head>
+  <body>
+    <main class="app-container">
+      <header class="app-header">
+        <h1>Pronóstico del Clima</h1>
+        <p>Consulta temperatura, humedad y precipitaciones actuales por ciudad</p>
+      </header>
+
+      <!-- Formulario de búsqueda -->
+      <section id="form-container"></section>
+
+      <!-- Indicador de carga -->
+      <div id="loading-indicator" class="loading-indicator" role="status" style="display: none;">
+        <div class="spinner" aria-hidden="true"></div>
+        <span>Consultando el clima...</span>
+      </div>
+
+      <!-- Mensajes de error -->
+      <div id="error-container" class="error-box" role="alert" style="display: none;"></div>
+
+      <!-- Visualización del clima -->
+      <section id="weather-display-container"></section>
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
